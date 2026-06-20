@@ -1,183 +1,201 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>Gestão de Stocks</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Gestão de Stocks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-        }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: white;
+    }
 
-        header {
-            background: #020617;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #22c55e;
-        }
+    header {
+        background: #020617;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #22c55e;
+    }
 
-        header h1 {
-            margin: 0;
-            color: #22c55e;
-        }
+    header h1 {
+        margin: 0;
+        color: #22c55e;
+    }
 
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            background: #111827;
-            border-bottom: 1px solid #334155;
-        }
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        background: #111827;
+    }
 
+    .tab-button {
+        flex: 1;
+        padding: 14px;
+        background: #111827;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .tab-button.active {
+        background: #22c55e;
+        color: #052e16;
+        font-weight: bold;
+    }
+
+    .tab-content {
+        display: none;
+        padding: 25px;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .card {
+        background: #1e293b;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    input, select {
+        width: 100%;
+        padding: 11px;
+        margin: 7px 0;
+        border-radius: 8px;
+        border: 1px solid #475569;
+        background: #020617;
+        color: white;
+    }
+
+    button {
+        padding: 10px 15px;
+        margin: 5px 3px;
+        border: none;
+        border-radius: 8px;
+        background: #22c55e;
+        color: #052e16;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #16a34a;
+    }
+
+    .btn-danger {
+        background: #ef4444;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: #dc2626;
+    }
+
+    .btn-edit {
+        background: #38bdf8;
+        color: #082f49;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        background: #020617;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #334155;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    th {
+        background: #111827;
+        color: #22c55e;
+    }
+
+    .produto-img {
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #334155;
+        background: #020617;
+    }
+
+    .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+    }
+
+    .stat {
+        background: #020617;
+        border: 1px solid #22c55e;
+        border-radius: 12px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .stat h2 {
+        color: #22c55e;
+        font-size: 32px;
+        margin: 0;
+    }
+
+    .baixo-stock {
+        color: #f87171;
+        font-weight: bold;
+    }
+
+    .ok-stock {
+        color: #22c55e;
+        font-weight: bold;
+    }
+
+    @media(max-width: 700px) {
         .tab-button {
-            flex: 1;
-            padding: 15px;
-            background: #111827;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        .tab-button:hover {
-            background: #1f2937;
-        }
-
-        .tab-button.active {
-            background: #22c55e;
-            color: #052e16;
-            font-weight: bold;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 25px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .stat {
-            background: #020617;
-            border: 1px solid #22c55e;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .stat h2 {
-            color: #22c55e;
-            margin: 0;
-            font-size: 30px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
-            border: 1px solid #475569;
-            background: #020617;
-            color: white;
-        }
-
-        button {
-            padding: 12px 18px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 8px;
-            background: #22c55e;
-            color: #052e16;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #16a34a;
-        }
-
-        .btn-danger {
-            background: #ef4444;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
+            flex: 100%;
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background: #020617;
-            border-radius: 10px;
-            overflow: hidden;
+            font-size: 12px;
         }
 
         th, td {
-            padding: 12px;
-            border-bottom: 1px solid #334155;
-            text-align: left;
+            padding: 8px;
         }
-
-        th {
-            background: #111827;
-            color: #22c55e;
-        }
-
-        .baixo-stock {
-            color: #f87171;
-            font-weight: bold;
-        }
-
-        @media(max-width: 700px) {
-            .tab-button {
-                flex: 100%;
-            }
-
-            table {
-                font-size: 13px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
 
 <header>
     <h1>📦 Gestão de Stocks</h1>
-    <p>Sistema simples em GitHub Pages</p>
+    <p>Produtos, categorias, imagens e stock por armazém</p>
 </header>
 
 <div class="tabs">
     <button class="tab-button active" onclick="abrirTab('dashboard', this)">Dashboard</button>
     <button class="tab-button" onclick="abrirTab('produtos', this)">Produtos</button>
-    <button class="tab-button" onclick="abrirTab('entradas', this)">Entradas</button>
-    <button class="tab-button" onclick="abrirTab('saidas', this)">Saídas</button>
-    <button class="tab-button" onclick="abrirTab('fornecedores', this)">Fornecedores</button>
+    <button class="tab-button" onclick="abrirTab('movimentos', this)">Entradas / Saídas</button>
+    <button class="tab-button" onclick="abrirTab('categorias', this)">Categorias</button>
+    <button class="tab-button" onclick="abrirTab('armazens', this)">Armazéns</button>
     <button class="tab-button" onclick="abrirTab('relatorios', this)">Relatórios</button>
 </div>
 
@@ -193,40 +211,57 @@
             <p>Total em Stock</p>
         </div>
         <div class="stat">
-            <h2 id="stockBaixo">0</h2>
-            <p>Stock Baixo</p>
+            <h2 id="totalCategorias">0</h2>
+            <p>Categorias</p>
         </div>
         <div class="stat">
-            <h2 id="totalFornecedores">0</h2>
-            <p>Fornecedores</p>
+            <h2 id="totalArmazens">0</h2>
+            <p>Armazéns</p>
         </div>
     </div>
 </div>
 
 <!-- PRODUTOS -->
 <div id="produtos" class="tab-content">
+
     <div class="card">
-        <h2>Adicionar Produto</h2>
+        <h2 id="tituloProduto">Adicionar Produto</h2>
+
+        <input type="hidden" id="produtoId">
 
         <input type="text" id="produtoNome" placeholder="Nome do produto">
-        <input type="text" id="produtoCategoria" placeholder="Categoria">
-        <input type="number" id="produtoQuantidade" placeholder="Quantidade inicial">
+        <input type="text" id="produtoReferencia" placeholder="Referência / Código">
+
+        <select id="produtoCategoria"></select>
+
         <input type="number" id="produtoMinimo" placeholder="Stock mínimo">
 
-        <button onclick="adicionarProduto()">Adicionar Produto</button>
+        <label>Imagem do produto:</label>
+        <input type="file" id="produtoImagem" accept="image/*">
+
+        <button onclick="guardarProduto()">Guardar Produto</button>
+        <button class="btn-danger" onclick="limparFormularioProduto()">Cancelar</button>
+    </div>
+
+    <div class="card">
+        <h2>Pesquisar Produtos</h2>
+        <input type="text" id="pesquisaProduto" placeholder="Pesquisar por nome, referência ou categoria..." oninput="atualizarProdutos()">
     </div>
 
     <div class="card">
         <h2>Lista de Produtos</h2>
+
         <table>
             <thead>
                 <tr>
+                    <th>Imagem</th>
                     <th>Produto</th>
+                    <th>Referência</th>
                     <th>Categoria</th>
-                    <th>Stock</th>
+                    <th>Stock Total</th>
                     <th>Mínimo</th>
                     <th>Estado</th>
-                    <th>Ação</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody id="listaProdutos"></tbody>
@@ -234,87 +269,104 @@
     </div>
 </div>
 
-<!-- ENTRADAS -->
-<div id="entradas" class="tab-content">
+<!-- MOVIMENTOS -->
+<div id="movimentos" class="tab-content">
+
     <div class="card">
-        <h2>Registar Entrada</h2>
+        <h2>Registar Entrada / Saída</h2>
 
-        <select id="entradaProduto"></select>
-        <input type="number" id="entradaQuantidade" placeholder="Quantidade a entrar">
+        <select id="movimentoTipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+        </select>
 
-        <button onclick="registarEntrada()">Registar Entrada</button>
+        <select id="movimentoProduto"></select>
+        <select id="movimentoArmazem"></select>
+
+        <input type="number" id="movimentoQuantidade" placeholder="Quantidade">
+
+        <button onclick="registarMovimento()">Registar Movimento</button>
     </div>
 
     <div class="card">
-        <h2>Histórico de Entradas</h2>
+        <h2>Histórico de Movimentos</h2>
+
         <table>
             <thead>
                 <tr>
+                    <th>Tipo</th>
                     <th>Produto</th>
+                    <th>Armazém</th>
                     <th>Quantidade</th>
                     <th>Data</th>
                 </tr>
             </thead>
-            <tbody id="listaEntradas"></tbody>
+            <tbody id="listaMovimentos"></tbody>
         </table>
     </div>
 </div>
 
-<!-- SAÍDAS -->
-<div id="saidas" class="tab-content">
+<!-- CATEGORIAS -->
+<div id="categorias" class="tab-content">
+
     <div class="card">
-        <h2>Registar Saída</h2>
-
-        <select id="saidaProduto"></select>
-        <input type="number" id="saidaQuantidade" placeholder="Quantidade a sair">
-
-        <button onclick="registarSaida()">Registar Saída</button>
+        <h2>Adicionar Categoria</h2>
+        <input type="text" id="novaCategoria" placeholder="Nome da categoria">
+        <button onclick="adicionarCategoria()">Adicionar Categoria</button>
     </div>
 
     <div class="card">
-        <h2>Histórico de Saídas</h2>
+        <h2>Lista de Categorias</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody id="listaSaidas"></tbody>
-        </table>
-    </div>
-</div>
-
-<!-- FORNECEDORES -->
-<div id="fornecedores" class="tab-content">
-    <div class="card">
-        <h2>Adicionar Fornecedor</h2>
-
-        <input type="text" id="fornecedorNome" placeholder="Nome do fornecedor">
-        <input type="text" id="fornecedorContacto" placeholder="Contacto">
-        <input type="email" id="fornecedorEmail" placeholder="Email">
-
-        <button onclick="adicionarFornecedor()">Adicionar Fornecedor</button>
-    </div>
-
-    <div class="card">
-        <h2>Lista de Fornecedores</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Fornecedor</th>
-                    <th>Contacto</th>
-                    <th>Email</th>
+                    <th>Categoria</th>
                     <th>Ação</th>
                 </tr>
             </thead>
-            <tbody id="listaFornecedores"></tbody>
+            <tbody id="listaCategorias"></tbody>
         </table>
     </div>
 </div>
 
-<!-- RELATÓRIOS -->
+<!-- ARMAZENS -->
+<div id="armazens" class="tab-content">
+
+    <div class="card">
+        <h2>Adicionar Armazém / Localização</h2>
+        <input type="text" id="novoArmazem" placeholder="Ex: Lisboa, Porto, Oficina, Sala Técnica">
+        <button onclick="adicionarArmazem()">Adicionar Armazém</button>
+    </div>
+
+    <div class="card">
+        <h2>Stock por Armazém</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Armazém</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody id="listaStockArmazens"></tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Lista de Armazéns</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Armazém</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="listaArmazens"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- RELATORIOS -->
 <div id="relatorios" class="tab-content">
     <div class="card">
         <h2>Relatórios</h2>
@@ -324,296 +376,421 @@
 </div>
 
 <script>
-    let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
-    let entradas = JSON.parse(localStorage.getItem("entradas")) || [];
-    let saidas = JSON.parse(localStorage.getItem("saidas")) || [];
-    let fornecedores = JSON.parse(localStorage.getItem("fornecedores")) || [];
+let produtos = JSON.parse(localStorage.getItem("produtos_v2")) || [];
+let categorias = JSON.parse(localStorage.getItem("categorias_v2")) || ["Material Informático", "Consumíveis", "Ferramentas"];
+let armazens = JSON.parse(localStorage.getItem("armazens_v2")) || ["Lisboa"];
+let movimentos = JSON.parse(localStorage.getItem("movimentos_v2")) || [];
 
-    function guardarDados() {
-        localStorage.setItem("produtos", JSON.stringify(produtos));
-        localStorage.setItem("entradas", JSON.stringify(entradas));
-        localStorage.setItem("saidas", JSON.stringify(saidas));
-        localStorage.setItem("fornecedores", JSON.stringify(fornecedores));
+function guardarDados() {
+    localStorage.setItem("produtos_v2", JSON.stringify(produtos));
+    localStorage.setItem("categorias_v2", JSON.stringify(categorias));
+    localStorage.setItem("armazens_v2", JSON.stringify(armazens));
+    localStorage.setItem("movimentos_v2", JSON.stringify(movimentos));
+}
+
+function abrirTab(tabId, botao) {
+    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
+    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+
+    document.getElementById(tabId).classList.add("active");
+    botao.classList.add("active");
+
+    atualizarTudo();
+}
+
+function imagemParaBase64(file, callback) {
+    if (!file) {
+        callback("");
+        return;
     }
 
-    function abrirTab(tabId, botao) {
-        document.querySelectorAll(".tab-content").forEach(tab => {
-            tab.classList.remove("active");
-        });
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        callback(e.target.result);
+    };
+    reader.readAsDataURL(file);
+}
 
-        document.querySelectorAll(".tab-button").forEach(btn => {
-            btn.classList.remove("active");
-        });
+function guardarProduto() {
+    const id = document.getElementById("produtoId").value;
+    const nome = document.getElementById("produtoNome").value.trim();
+    const referencia = document.getElementById("produtoReferencia").value.trim();
+    const categoria = document.getElementById("produtoCategoria").value;
+    const minimo = parseInt(document.getElementById("produtoMinimo").value);
+    const imagemFile = document.getElementById("produtoImagem").files[0];
 
-        document.getElementById(tabId).classList.add("active");
-        botao.classList.add("active");
-
-        atualizarTudo();
+    if (!nome || !referencia || !categoria || isNaN(minimo)) {
+        alert("Preenche nome, referência, categoria e stock mínimo.");
+        return;
     }
 
-    function adicionarProduto() {
-        const nome = document.getElementById("produtoNome").value.trim();
-        const categoria = document.getElementById("produtoCategoria").value.trim();
-        const quantidade = parseInt(document.getElementById("produtoQuantidade").value);
-        const minimo = parseInt(document.getElementById("produtoMinimo").value);
+    imagemParaBase64(imagemFile, function(imagemBase64) {
 
-        if (!nome || !categoria || isNaN(quantidade) || isNaN(minimo)) {
-            alert("Preenche todos os campos do produto.");
-            return;
+        if (id) {
+            const produto = produtos.find(p => p.id == id);
+
+            produto.nome = nome;
+            produto.referencia = referencia;
+            produto.categoria = categoria;
+            produto.minimo = minimo;
+
+            if (imagemBase64) {
+                produto.imagem = imagemBase64;
+            }
+
+        } else {
+            let stockPorArmazem = {};
+
+            armazens.forEach(a => {
+                stockPorArmazem[a] = 0;
+            });
+
+            produtos.push({
+                id: Date.now(),
+                nome,
+                referencia,
+                categoria,
+                minimo,
+                imagem: imagemBase64,
+                stockPorArmazem
+            });
         }
 
-        produtos.push({
-            id: Date.now(),
-            nome,
-            categoria,
-            quantidade,
-            minimo
-        });
-
-        document.getElementById("produtoNome").value = "";
-        document.getElementById("produtoCategoria").value = "";
-        document.getElementById("produtoQuantidade").value = "";
-        document.getElementById("produtoMinimo").value = "";
-
         guardarDados();
+        limparFormularioProduto();
         atualizarTudo();
-    }
+    });
+}
 
-    function apagarProduto(id) {
-        if (!confirm("Tens a certeza que queres apagar este produto?")) return;
+function editarProduto(id) {
+    const produto = produtos.find(p => p.id === id);
 
-        produtos = produtos.filter(p => p.id !== id);
-        guardarDados();
-        atualizarTudo();
-    }
+    document.getElementById("tituloProduto").innerText = "Editar Produto";
+    document.getElementById("produtoId").value = produto.id;
+    document.getElementById("produtoNome").value = produto.nome;
+    document.getElementById("produtoReferencia").value = produto.referencia;
+    document.getElementById("produtoCategoria").value = produto.categoria;
+    document.getElementById("produtoMinimo").value = produto.minimo;
 
-    function registarEntrada() {
-        const id = parseInt(document.getElementById("entradaProduto").value);
-        const quantidade = parseInt(document.getElementById("entradaQuantidade").value);
+    abrirTab("produtos", document.querySelectorAll(".tab-button")[1]);
+    window.scrollTo(0, 0);
+}
 
-        if (isNaN(id) || isNaN(quantidade) || quantidade <= 0) {
-            alert("Seleciona um produto e indica uma quantidade válida.");
-            return;
-        }
+function limparFormularioProduto() {
+    document.getElementById("tituloProduto").innerText = "Adicionar Produto";
+    document.getElementById("produtoId").value = "";
+    document.getElementById("produtoNome").value = "";
+    document.getElementById("produtoReferencia").value = "";
+    document.getElementById("produtoMinimo").value = "";
+    document.getElementById("produtoImagem").value = "";
+}
 
-        const produto = produtos.find(p => p.id === id);
-        produto.quantidade += quantidade;
+function apagarProduto(id) {
+    if (!confirm("Tens a certeza que queres apagar este produto?")) return;
 
-        entradas.push({
-            produto: produto.nome,
-            quantidade,
-            data: new Date().toLocaleString("pt-PT")
-        });
+    produtos = produtos.filter(p => p.id !== id);
+    guardarDados();
+    atualizarTudo();
+}
 
-        document.getElementById("entradaQuantidade").value = "";
+function calcularStockTotal(produto) {
+    return Object.values(produto.stockPorArmazem || {}).reduce((total, qtd) => total + Number(qtd), 0);
+}
 
-        guardarDados();
-        atualizarTudo();
-    }
+function atualizarProdutos() {
+    const tbody = document.getElementById("listaProdutos");
+    const pesquisa = document.getElementById("pesquisaProduto").value.toLowerCase();
 
-    function registarSaida() {
-        const id = parseInt(document.getElementById("saidaProduto").value);
-        const quantidade = parseInt(document.getElementById("saidaQuantidade").value);
+    tbody.innerHTML = "";
 
-        if (isNaN(id) || isNaN(quantidade) || quantidade <= 0) {
-            alert("Seleciona um produto e indica uma quantidade válida.");
-            return;
-        }
+    produtos
+        .filter(p =>
+            p.nome.toLowerCase().includes(pesquisa) ||
+            p.referencia.toLowerCase().includes(pesquisa) ||
+            p.categoria.toLowerCase().includes(pesquisa)
+        )
+        .forEach(p => {
+            const stockTotal = calcularStockTotal(p);
+            const estado = stockTotal <= p.minimo
+                ? "<span class='baixo-stock'>Baixo</span>"
+                : "<span class='ok-stock'>OK</span>";
 
-        const produto = produtos.find(p => p.id === id);
-
-        if (produto.quantidade < quantidade) {
-            alert("Stock insuficiente.");
-            return;
-        }
-
-        produto.quantidade -= quantidade;
-
-        saidas.push({
-            produto: produto.nome,
-            quantidade,
-            data: new Date().toLocaleString("pt-PT")
-        });
-
-        document.getElementById("saidaQuantidade").value = "";
-
-        guardarDados();
-        atualizarTudo();
-    }
-
-    function adicionarFornecedor() {
-        const nome = document.getElementById("fornecedorNome").value.trim();
-        const contacto = document.getElementById("fornecedorContacto").value.trim();
-        const email = document.getElementById("fornecedorEmail").value.trim();
-
-        if (!nome || !contacto || !email) {
-            alert("Preenche todos os campos do fornecedor.");
-            return;
-        }
-
-        fornecedores.push({
-            id: Date.now(),
-            nome,
-            contacto,
-            email
-        });
-
-        document.getElementById("fornecedorNome").value = "";
-        document.getElementById("fornecedorContacto").value = "";
-        document.getElementById("fornecedorEmail").value = "";
-
-        guardarDados();
-        atualizarTudo();
-    }
-
-    function apagarFornecedor(id) {
-        if (!confirm("Tens a certeza que queres apagar este fornecedor?")) return;
-
-        fornecedores = fornecedores.filter(f => f.id !== id);
-        guardarDados();
-        atualizarTudo();
-    }
-
-    function atualizarTudo() {
-        atualizarProdutos();
-        atualizarSelects();
-        atualizarEntradas();
-        atualizarSaidas();
-        atualizarFornecedores();
-        atualizarDashboard();
-    }
-
-    function atualizarProdutos() {
-        const tbody = document.getElementById("listaProdutos");
-        tbody.innerHTML = "";
-
-        produtos.forEach(p => {
-            const estado = p.quantidade <= p.minimo 
-                ? "<span class='baixo-stock'>Baixo</span>" 
-                : "OK";
+            const imagem = p.imagem
+                ? `<img src="${p.imagem}" class="produto-imgs="produto-img"></div>`;
 
             tbody.innerHTML += `
                 <tr>
+                    <td>${imagem}</td>
                     <td>${p.nome}</td>
+                    <td>${p.referencia}</td>
                     <td>${p.categoria}</td>
-                    <td>${p.quantidade}</td>
+                    <td>${stockTotal}</td>
                     <td>${p.minimo}</td>
                     <td>${estado}</td>
                     <td>
+                        <button class="btn-edit" onclick="editarProduto(${p.id})">Editar</button>
                         <button class="btn-danger" onclick="apagarProduto(${p.id})">Apagar</button>
                     </td>
                 </tr>
             `;
         });
+}
+
+function adicionarCategoria() {
+    const categoria = document.getElementById("novaCategoria").value.trim();
+
+    if (!categoria) {
+        alert("Indica o nome da categoria.");
+        return;
     }
 
-    function atualizarSelects() {
-        const entradaSelect = document.getElementById("entradaProduto");
-        const saidaSelect = document.getElementById("saidaProduto");
-
-        entradaSelect.innerHTML = "";
-        saidaSelect.innerHTML = "";
-
-        produtos.forEach(p => {
-            entradaSelect.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
-            saidaSelect.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
-        });
+    if (categorias.includes(categoria)) {
+        alert("Essa categoria já existe.");
+        return;
     }
 
-    function atualizarEntradas() {
-        const tbody = document.getElementById("listaEntradas");
-        tbody.innerHTML = "";
-
-        entradas.forEach(e => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${e.produto}</td>
-                    <td>${e.quantidade}</td>
-                    <td>${e.data}</td>
-                </tr>
-            `;
-        });
-    }
-
-    function atualizarSaidas() {
-        const tbody = document.getElementById("listaSaidas");
-        tbody.innerHTML = "";
-
-        saidas.forEach(s => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${s.produto}</td>
-                    <td>${s.quantidade}</td>
-                    <td>${s.data}</td>
-                </tr>
-            `;
-        });
-    }
-
-    function atualizarFornecedores() {
-        const tbody = document.getElementById("listaFornecedores");
-        tbody.innerHTML = "";
-
-        fornecedores.forEach(f => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${f.nome}</td>
-                    <td>${f.contacto}</td>
-                    <td>${f.email}</td>
-                    <td>
-                        <button class="btn-danger" onclick="apagarFornecedor(${f.id})">Apagar</button>
-                    </td>
-                </tr>
-            `;
-        });
-    }
-
-    function atualizarDashboard() {
-        document.getElementById("totalProdutos").innerText = produtos.length;
-
-        const totalStock = produtos.reduce((total, p) => total + p.quantidade, 0);
-        document.getElementById("totalStock").innerText = totalStock;
-
-        const baixoStock = produtos.filter(p => p.quantidade <= p.minimo).length;
-        document.getElementById("stockBaixo").innerText = baixoStock;
-
-        document.getElementById("totalFornecedores").innerText = fornecedores.length;
-    }
-
-    function exportarCSV() {
-        if (produtos.length === 0) {
-            alert("Não existem produtos para exportar.");
-            return;
-        }
-
-        let csv = "Produto;Categoria;Stock;Stock Minimo\n";
-
-        produtos.forEach(p => {
-            csv += `${p.nome};${p.categoria};${p.quantidade};${p.minimo}\n`;
-        });
-
-        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-        const link = document.createElement("a");
-
-        link.href = URL.createObjectURL(blob);
-        link.download = "produtos_stock.csv";
-        link.click();
-    }
-
-    function limparTudo() {
-        if (!confirm("Isto vai apagar todos os dados. Queres continuar?")) return;
-
-        localStorage.clear();
-
-        produtos = [];
-        entradas = [];
-        saidas = [];
-        fornecedores = [];
-
-        atualizarTudo();
-    }
-
+    categorias.push(categoria);
+    document.getElementById("novaCategoria").value = "";
+    guardarDados();
     atualizarTudo();
+}
+
+function apagarCategoria(categoria) {
+    const usada = produtos.some(p => p.categoria === categoria);
+
+    if (usada) {
+        alert("Não podes apagar esta categoria porque existem produtos associados.");
+        return;
+    }
+
+    categorias = categorias.filter(c => c !== categoria);
+    guardarDados();
+    atualizarTudo();
+}
+
+function atualizarCategorias() {
+    const tbody = document.getElementById("listaCategorias");
+    const select = document.getElementById("produtoCategoria");
+
+    tbody.innerHTML = "";
+    select.innerHTML = "";
+
+    categorias.forEach(c => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${c}</td>
+                <td><button class="btn-danger" onclick="apagarCategoria('${c}')">Apagar</button></td>
+            </tr>
+        `;
+
+        select.innerHTML += `<option value="${c}">${c}</option>`;
+    });
+}
+
+function adicionarArmazem() {
+    const armazem = document.getElementById("novoArmazem").value.trim();
+
+    if (!armazem) {
+        alert("Indica o nome do armazém.");
+        return;
+    }
+
+    if (armazens.includes(armazem)) {
+        alert("Esse armazém já existe.");
+        return;
+    }
+
+    armazens.push(armazem);
+
+    produtos.forEach(p => {
+        if (!p.stockPorArmazem) p.stockPorArmazem = {};
+        p.stockPorArmazem[armazem] = 0;
+    });
+
+    document.getElementById("novoArmazem").value = "";
+    guardarDados();
+    atualizarTudo();
+}
+
+function apagarArmazem(armazem) {
+    const temStock = produtos.some(p => Number(p.stockPorArmazem?.[armazem] || 0) > 0);
+
+    if (temStock) {
+        alert("Não podes apagar este armazém porque ainda tem stock.");
+        return;
+    }
+
+    armazens = armazens.filter(a => a !== armazem);
+
+    produtos.forEach(p => {
+        delete p.stockPorArmazem[armazem];
+    });
+
+    guardarDados();
+    atualizarTudo();
+}
+
+function atualizarArmazens() {
+    const tbody = document.getElementById("listaArmazens");
+    const movimentoArmazem = document.getElementById("movimentoArmazem");
+
+    tbody.innerHTML = "";
+    movimentoArmazem.innerHTML = "";
+
+    armazens.forEach(a => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${a}</td>
+                <td><button class="btn-danger" onclick="apagarArmazem('${a}')">Apagar</button></td>
+            </tr>
+        `;
+
+        movimentoArmazem.innerHTML += `<option value="${a}">${a}</option>`;
+    });
+}
+
+function atualizarSelectProdutos() {
+    const select = document.getElementById("movimentoProduto");
+    select.innerHTML = "";
+
+    produtos.forEach(p => {
+        select.innerHTML += `<option value="${p.id}">${p.nome} - ${p.referencia}</option>`;
+    });
+}
+
+function registarMovimento() {
+    const tipo = document.getElementById("movimentoTipo").value;
+    const produtoId = parseInt(document.getElementById("movimentoProduto").value);
+    const armazem = document.getElementById("movimentoArmazem").value;
+    const quantidade = parseInt(document.getElementById("movimentoQuantidade").value);
+
+    if (isNaN(produtoId) || !armazem || isNaN(quantidade) || quantidade <= 0) {
+        alert("Seleciona produto, armazém e quantidade válida.");
+        return;
+    }
+
+    const produto = produtos.find(p => p.id === produtoId);
+
+    if (!produto.stockPorArmazem) produto.stockPorArmazem = {};
+    if (!produto.stockPorArmazem[armazem]) produto.stockPorArmazem[armazem] = 0;
+
+    if (tipo === "saida" && produto.stockPorArmazem[armazem] < quantidade) {
+        alert("Stock insuficiente neste armazém.");
+        return;
+    }
+
+    if (tipo === "entrada") {
+        produto.stockPorArmazem[armazem] += quantidade;
+    } else {
+        produto.stockPorArmazem[armazem] -= quantidade;
+    }
+
+    movimentos.unshift({
+        tipo,
+        produto: produto.nome,
+        referencia: produto.referencia,
+        armazem,
+        quantidade,
+        data: new Date().toLocaleString("pt-PT")
+    });
+
+    document.getElementById("movimentoQuantidade").value = "";
+
+    guardarDados();
+    atualizarTudo();
+}
+
+function atualizarMovimentos() {
+    const tbody = document.getElementById("listaMovimentos");
+    tbody.innerHTML = "";
+
+    movimentos.forEach(m => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${m.tipo === "entrada" ? "Entrada" : "Saída"}</td>
+                <td>${m.produto}</td>
+                <td>${m.armazem}</td>
+                <td>${m.quantidade}</td>
+                <td>${m.data}</td>
+            </tr>
+        `;
+    });
+}
+
+function atualizarStockArmazens() {
+    const tbody = document.getElementById("listaStockArmazens");
+    tbody.innerHTML = "";
+
+    produtos.forEach(p => {
+        armazens.forEach(a => {
+            const qtd = Number(p.stockPorArmazem?.[a] || 0);
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${p.nome}</td>
+                    <td>${a}</td>
+                    <td>${qtd}</td>
+                </tr>
+            `;
+        });
+    });
+}
+
+function atualizarDashboard() {
+    document.getElementById("totalProdutos").innerText = produtos.length;
+
+    const totalStock = produtos.reduce((total, p) => total + calcularStockTotal(p), 0);
+    document.getElementById("totalStock").innerText = totalStock;
+
+    document.getElementById("totalCategorias").innerText = categorias.length;
+    document.getElementById("totalArmazens").innerText = armazens.length;
+}
+
+function exportarCSV() {
+    let csv = "Produto;Referencia;Categoria;Armazem;Quantidade;Stock Minimo\n";
+
+    produtos.forEach(p => {
+        armazens.forEach(a => {
+            csv += `${p.nome};${p.referencia};${p.categoria};${a};${Number(p.stockPorArmazem?.[a] || 0)};${p.minimo}\n`;
+        });
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+    link.download = "stock_por_armazem.csv";
+    link.click();
+}
+
+function limparTudo() {
+    if (!confirm("Isto vai apagar todos os dados. Queres continuar?")) return;
+
+    localStorage.removeItem("produtos_v2");
+    localStorage.removeItem("categorias_v2");
+    localStorage.removeItem("armazens_v2");
+    localStorage.removeItem("movimentos_v2");
+
+    produtos = [];
+    categorias = ["Material Informático", "Consumíveis", "Ferramentas"];
+    armazens = ["Lisboa"];
+    movimentos = [];
+
+    guardarDados();
+    atualizarTudo();
+}
+
+function atualizarTudo() {
+    atualizarCategorias();
+    atualizarArmazens();
+    atualizarSelectProdutos();
+    atualizarProdutos();
+    atualizarMovimentos();
+    atualizarStockArmazens();
+    atualizarDashboard();
+}
+
+atualizarTudo();
 </script>
 
 </body>
