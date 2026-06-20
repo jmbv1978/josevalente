@@ -6,246 +6,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-}
-
-header {
-    background: #020617;
-    padding: 22px 16px;
-    text-align: center;
-    border-bottom: 2px solid #22c55e;
-}
-
-header h1 {
-    margin: 0;
-    color: #22c55e;
-}
-
-header p {
-    margin: 8px 0 0;
-    color: #cbd5e1;
-}
-
-.tabs {
-    display: flex;
-    flex-wrap: wrap;
-    background: #111827;
-    border-bottom: 1px solid #334155;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-.tab-button {
-    flex: 1;
-    min-width: 130px;
-    padding: 14px 10px;
-    background: #111827;
-    color: white;
-    border: 0;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-}
-
-.tab-button:hover {
-    background: #1f2937;
-}
-
-.tab-button.active {
-    background: #22c55e;
-    color: #052e16;
-    font-weight: bold;
-}
-
-.tab-content {
-    display: none;
-    padding: 24px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.card {
-    background: #1e293b;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 12px;
-}
-
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-.stat {
-    background: #020617;
-    border: 1px solid #22c55e;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-}
-
-.stat h2 {
-    color: #22c55e;
-    font-size: 32px;
-    margin: 0;
-}
-
-.stat p {
-    color: #cbd5e1;
-    margin-bottom: 0;
-}
-
-label {
-    display: block;
-    margin-top: 8px;
-    color: #cbd5e1;
-    font-size: 14px;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 11px;
-    margin: 7px 0;
-    border-radius: 8px;
-    border: 1px solid #475569;
-    background: #020617;
-    color: white;
-}
-
-button {
-    padding: 10px 14px;
-    margin: 5px 3px;
-    border: 0;
-    border-radius: 8px;
-    background: #22c55e;
-    color: #052e16;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    filter: brightness(0.95);
-}
-
-.btn-danger {
-    background: #ef4444;
-    color: white;
-}
-
-.btn-edit {
-    background: #38bdf8;
-    color: #082f49;
-}
-
-.btn-warning {
-    background: #f59e0b;
-    color: #111827;
-}
-
-.btn-secondary {
-    background: #64748b;
-    color: white;
-}
-
-.table-wrap {
-    width: 100%;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background: #020617;
-    border-radius: 10px;
-    overflow: hidden;
-    min-width: 760px;
-}
-
-th,
-td {
-    padding: 12px;
-    border-bottom: 1px solid #334155;
-    text-align: left;
-    vertical-align: middle;
-}
-
-th {
-    background: #111827;
-    color: #22c55e;
-}
-
-.produto-img {
-    width: 58px;
-    height: 58px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid #334155;
-    background: #020617;
-    display: inline-block;
-}
-
-.baixo-stock {
-    color: #f87171;
-    font-weight: bold;
-}
-
-.ok-stock {
-    color: #22c55e;
-    font-weight: bold;
-}
-
-.estado-pendente {
-    color: #fbbf24;
-    font-weight: bold;
-}
-
-.small {
-    color: #94a3b8;
-    font-size: 13px;
-}
-
-.actions {
-    white-space: nowrap;
-}
-
-@media(max-width: 700px) {
-    .tab-button {
-        flex: 100%;
-    }
-
-    .tab-content {
-        padding: 14px;
-    }
-
-    table {
-        font-size: 12px;
-    }
-
-    th,
-    td {
-        padding: 8px;
-    }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0f172a;color:white}
+header{background:#020617;padding:22px 16px;text-align:center;border-bottom:2px solid #22c55e}
+header h1{margin:0;color:#22c55e}
+header p{margin:8px 0 0;color:#cbd5e1}
+.tabs{display:flex;flex-wrap:wrap;background:#111827;border-bottom:1px solid #334155;position:sticky;top:0;z-index:10}
+.tab-button{flex:1;min-width:130px;padding:14px 10px;background:#111827;color:white;border:0;cursor:pointer;font-size:14px}
+.tab-button:hover{background:#1f2937}
+.tab-button.active{background:#22c55e;color:#052e16;font-weight:bold}
+.tab-content{display:none;padding:24px}
+.tab-content.active{display:block}
+.card{background:#1e293b;border-radius:14px;padding:20px;margin-bottom:20px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.stat{background:#020617;border:1px solid #22c55e;border-radius:12px;padding:20px;text-align:center}
+.stat h2{color:#22c55e;font-size:32px;margin:0}
+.stat p{color:#cbd5e1;margin-bottom:0}
+label{display:block;margin-top:8px;color:#cbd5e1;font-size:14px}
+input,select{width:100%;padding:11px;margin:7px 0;border-radius:8px;border:1px solid #475569;background:#020617;color:white}
+button{padding:10px 14px;margin:5px 3px;border:0;border-radius:8px;background:#22c55e;color:#052e16;font-weight:bold;cursor:pointer}
+button:hover{filter:brightness(.95)}
+.btn-danger{background:#ef4444;color:white}
+.btn-edit{background:#38bdf8;color:#082f49}
+.btn-warning{background:#f59e0b;color:#111827}
+.btn-secondary{background:#64748b;color:white}
+.table-wrap{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin-top:15px;background:#020617;border-radius:10px;overflow:hidden;min-width:760px}
+th,td{padding:12px;border-bottom:1px solid #334155;text-align:left;vertical-align:middle}
+th{background:#111827;color:#22c55e}
+.produto-img{width:58px;height:58px;object-fit:cover;border-radius:10px;border:1px solid #334155;background:#020617;display:inline-block}
+.baixo-stock{color:#f87171;font-weight:bold}
+.ok-stock{color:#22c55e;font-weight:bold}
+.estado-pendente{color:#fbbf24;font-weight:bold}
+.small{color:#94a3b8;font-size:13px}
+.actions{white-space:nowrap}
+@media(max-width:700px){
+    .tab-button{flex:100%}
+    .tab-content{padding:14px}
+    table{font-size:12px}
+    th,td{padding:8px}
 }
 </style>
 </head>
@@ -268,52 +68,21 @@ th {
     <button class="tab-button" onclick="abrirTab('relatorios', this)">Relatórios</button>
 </div>
 
-<!-- DASHBOARD -->
 <div id="dashboard" class="tab-content active">
     <div class="dashboard">
-        <div class="stat">
-            <h2 id="totalProdutos">0</h2>
-            <p>Produtos</p>
-        </div>
-
-        <div class="stat">
-            <h2 id="totalStock">0</h2>
-            <p>Total em Stock</p>
-        </div>
-
-        <div class="stat">
-            <h2 id="stockBaixo">0</h2>
-            <p>Produtos com Stock Baixo</p>
-        </div>
-
-        <div class="stat">
-            <h2 id="totalCategorias">0</h2>
-            <p>Categorias</p>
-        </div>
-
-        <div class="stat">
-            <h2 id="totalArmazens">0</h2>
-            <p>Armazéns</p>
-        </div>
-
-        <div class="stat">
-            <h2 id="totalFornecedores">0</h2>
-            <p>Fornecedores</p>
-        </div>
-
-        <div class="stat">
-            <h2 id="comprasPendentes">0</h2>
-            <p>Compras Pendentes</p>
-        </div>
+        <div class="stat"><h2 id="totalProdutos">0</h2><p>Produtos</p></div>
+        <div class="stat"><h2 id="totalStock">0</h2><p>Total em Stock</p></div>
+        <div class="stat"><h2 id="stockBaixo">0</h2><p>Stock Baixo</p></div>
+        <div class="stat"><h2 id="totalCategorias">0</h2><p>Categorias</p></div>
+        <div class="stat"><h2 id="totalArmazens">0</h2><p>Armazéns</p></div>
+        <div class="stat"><h2 id="totalFornecedores">0</h2><p>Fornecedores</p></div>
+        <div class="stat"><h2 id="comprasPendentes">0</h2><p>Compras Pendentes</p></div>
     </div>
 </div>
 
-<!-- PRODUTOS -->
 <div id="produtos" class="tab-content">
-
     <div class="card">
         <h2 id="tituloProduto">Adicionar Produto</h2>
-
         <input type="hidden" id="produtoId">
 
         <div class="grid">
@@ -340,8 +109,7 @@ th {
 
         <label>Imagem do produto</label>
         <input type="file" id="produtoImagem" accept="image/*">
-
-        <p class="small">Dica: usa imagens pequenas para não encher o armazenamento do browser.</p>
+        <p class="small">Usa imagens pequenas para evitar ocupar demasiado espaço no browser.</p>
 
         <button onclick="guardarProduto()">Guardar Produto</button>
         <button class="btn-secondary" onclick="limparFormularioProduto()">Cancelar</button>
@@ -354,7 +122,6 @@ th {
 
     <div class="card">
         <h2>Lista de Produtos</h2>
-
         <div class="table-wrap">
             <table>
                 <thead>
@@ -375,9 +142,7 @@ th {
     </div>
 </div>
 
-<!-- MOVIMENTOS -->
 <div id="movimentos" class="tab-content">
-
     <div class="card">
         <h2>Registar Entrada / Saída Manual</h2>
 
@@ -433,9 +198,7 @@ th {
     </div>
 </div>
 
-<!-- CATEGORIAS -->
 <div id="categorias" class="tab-content">
-
     <div class="card">
         <h2>Adicionar Categoria</h2>
         <input type="text" id="novaCategoria" placeholder="Nome da categoria">
@@ -459,9 +222,7 @@ th {
     </div>
 </div>
 
-<!-- ARMAZÉNS -->
 <div id="armazens" class="tab-content">
-
     <div class="card">
         <h2>Adicionar Armazém / Localização</h2>
         <input type="text" id="novoArmazem" placeholder="Ex: Lisboa, Porto, Oficina">
@@ -503,9 +264,7 @@ th {
     </div>
 </div>
 
-<!-- FORNECEDORES -->
 <div id="fornecedores" class="tab-content">
-
     <div class="card">
         <h2>Adicionar Fornecedor</h2>
 
@@ -548,9 +307,7 @@ th {
     </div>
 </div>
 
-<!-- COMPRAS -->
 <div id="compras" class="tab-content">
-
     <div class="card">
         <h2>Nova Compra / Encomenda</h2>
 
@@ -616,9 +373,7 @@ th {
     </div>
 </div>
 
-<!-- RELATÓRIOS -->
 <div id="relatorios" class="tab-content">
-
     <div class="card">
         <h2>Relatórios</h2>
 
@@ -631,12 +386,12 @@ th {
 
 <script>
 const LS = {
-    produtos: "stock_produtos_v5",
-    categorias: "stock_categorias_v5",
-    armazens: "stock_armazens_v5",
-    movimentos: "stock_movimentos_v5",
-    fornecedores: "stock_fornecedores_v5",
-    compras: "stock_compras_v5"
+    produtos: "stock_produtos_v6",
+    categorias: "stock_categorias_v6",
+    armazens: "stock_armazens_v6",
+    movimentos: "stock_movimentos_v6",
+    fornecedores: "stock_fornecedores_v6",
+    compras: "stock_compras_v6"
 };
 
 let produtos = JSON.parse(localStorage.getItem(LS.produtos)) || [];
@@ -731,10 +486,8 @@ function guardarProduto() {
     }
 
     imagemParaBase64(imagemFile, function(imagemBase64) {
-
         if (id) {
             const produto = produtos.find(p => p.id == id);
-
             if (!produto) return;
 
             produto.nome = nome;
@@ -774,7 +527,6 @@ function guardarProduto() {
 
 function editarProduto(id) {
     const produto = produtos.find(p => p.id === id);
-
     if (!produto) return;
 
     document.getElementById("tituloProduto").innerText = "Editar Produto";
@@ -798,9 +550,7 @@ function limparFormularioProduto() {
 }
 
 function apagarProduto(id) {
-    const temCompra = compras.some(c => c.produtoId === id);
-
-    if (temCompra) {
+    if (compras.some(c => c.produtoId === id)) {
         alert("Não podes apagar este produto porque existem compras associadas.");
         return;
     }
@@ -878,9 +628,7 @@ function adicionarCategoria() {
 }
 
 function apagarCategoria(categoria) {
-    const usada = produtos.some(p => p.categoria === categoria);
-
-    if (usada) {
+    if (produtos.some(p => p.categoria === categoria)) {
         alert("Não podes apagar esta categoria porque existem produtos associados.");
         return;
     }
@@ -1037,7 +785,6 @@ function registarMovimento() {
     }
 
     const produto = produtos.find(p => p.id === produtoId);
-
     if (!produto) return;
 
     normalizarStockProduto(produto);
@@ -1121,9 +868,7 @@ function adicionarFornecedor() {
 }
 
 function apagarFornecedor(id) {
-    const usado = compras.some(c => c.fornecedorId === id);
-
-    if (usado) {
+    if (compras.some(c => c.fornecedorId === id)) {
         alert("Não podes apagar este fornecedor porque existem compras associadas.");
         return;
     }
@@ -1159,7 +904,7 @@ function atualizarFornecedores() {
     });
 }
 
-/* COMPRAS / RECEÇÃO */
+/* COMPRAS */
 
 function atualizarSelectsCompras() {
     const selectProduto = document.getElementById("compraProduto");
